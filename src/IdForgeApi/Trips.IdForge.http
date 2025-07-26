@@ -1,0 +1,6 @@
+@Trips.IdForge_HostAddress = http://localhost:5207
+
+GET {{Trips.IdForge_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,9 @@
+﻿**/.vs
+**/.vscode
+**/bin/
+**/obj/
+**/*.csproj.user
+**/*.sln.DotSettings.user
+**/*.pubxml.user
+**/.idea/
+**/appsettings.Development.json
