@@ -1,12 +1,10 @@
-var builder = WebApplication.CreateBuilder(args);
+using Microsoft.AspNetCore.Identity;
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddOpenApi().AddIdentity<ApplicationUser, ApplicationRole>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
@@ -14,28 +12,36 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
-
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
+public class ApplicationUser : IdentityUser<long>
 {
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    public string Organisation { get; set; } = string.Empty;
+
+    public DateTime? PasswordChanged { get; set; } 
+    public long? LoginFailures { get; set; } 
+    public DateTime? LastLoginFailure { get; set; }
+    public long? Status { get; set; }
+    public DateTime? LastLogin { get; set; }
+    public long? CurrentLogins { get; set; }
+    public DateTime? ChangeDat { get; set; }
+    public long? ChangeUser { get; set; }
+    public long? InsertUser { get; set; }
+    public long? LegacyRoleId { get; set; }
+    public string? FullName { get; set; }
+    public string? Institute { get; set; }
+    public string? MailExtension { get; set; }
+    public string? Salutation { get; set; }
+    public string? Street { get; set; }
+    public string? ZipCode { get; set; }
+    public string? City { get; set; }
+    public long? OutputOption { get; set; }
+    public int? TraceLevel { get; set; }
+    public string? Language { get; set; }
+    public int? InputWidth { get; set; }
+    public int? PageLength { get; set; }
+    public int HashVersion { get; set; }
+    public long TrackingId { get; set; }
 }
+
+public class ApplicationRole : IdentityRole { }
